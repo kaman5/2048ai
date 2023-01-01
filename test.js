@@ -53,12 +53,7 @@ function keyListen(event) {
 
     if(code === "ArrowRight" || code === "ArrowUp" || code === "ArrowDown" || code === "ArrowLeft") {
         b.addRandomTile();
+        engine.updateBar();
         //engine.showLines(b.getPosition());
     }
 }
-
-
-
-
-
-
