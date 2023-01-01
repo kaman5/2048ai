@@ -70,6 +70,11 @@ class Engine {
         }
     }
 
+    updateBar(board) {
+        let bar = document.getElementById("eval");
+        bar.style.height = (Math.random() * 60) + "vmin";
+    }
+
     showLines(board) {
         let pos = this.board.getPosition();
         let move = this.evaluate(pos);
