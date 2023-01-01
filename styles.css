@@ -1,0 +1,139 @@
+
+body {
+    display:flex;
+    height:85vh;
+    margin:0;
+    font-size:5vmin;
+    font-family:Arial, Helvetica, sans-serif;
+    justify-content:center;
+    align-items:center;
+}
+
+#eval-lines {
+    top:5vmin;
+    position:relative
+}
+
+#computer-play {
+    width:6vmin;
+    height:6vmin;
+}
+
+#comp {
+    position:relative;
+    top:-10vmin;
+    left:1vmin;
+    font-size:5vmin;
+    border-width:10px;
+}
+
+#comp-label {
+    position:absolute;
+    top:4px;
+}
+
+#eval-bar {
+    width:2vmin;
+    height:60vmin;
+    margin:1vmin;
+    border-radius:1vmin;
+    border-style:solid;
+    position:relative;
+}
+
+#eval {
+    transition:500ms ease-in-out;
+    position:absolute;
+    bottom:0;
+    width:2vmin;
+    height:10vmin;
+    overflow:hidden;
+    border-radius:0.5vmin;
+    background:#ffe078;
+}
+
+#tile-table {
+    display:grid;
+    gap:2vmin;
+    border-radius:1vmin;
+    padding:3vmin;
+    grid-template-rows:repeat(4, 12vmin);
+    grid-template-columns:repeat(4, 12vmin);
+    background:#bbada0;
+    position:relative;
+}
+
+.tile-cell {
+    background:#cdc1b4;
+    border-radius:0.5vw;
+    float:left;
+}
+
+.tile {
+    --x:0;
+    --y:0;
+    width:12vmin;
+    height:12vmin;
+    border-radius:1vmin;
+    position:absolute;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    top:calc((3 - var(--y)) * 14vmin + 3vmin);
+    left:calc(var(--x) * 14vmin + 3vmin);
+    animation:show 200ms ease-in-out;
+    transition:150ms ease-in-out;
+}
+
+@keyframes show {
+    0% {
+        opacity:1;
+        transform:scale(0);
+    }
+}
+
+.tileColor2 {
+    background-color:#eee4da;
+}
+
+.tileColor4 {
+    background-color:#eee1c9;
+}
+
+.tileColor8 {
+    background-color:#f3b27a;
+}
+
+.tileColor16 {
+    background-color:#f69664;
+}
+
+.tileColor32 {
+    background-color:#f77c5f;
+}
+
+.tileColor64 {
+    background-color:#f75f3b;
+}
+
+.tileColor128 {
+    background-color:#edd073;
+}
+
+.tileColor256 {
+    background-color:#edcc61;
+}
+
+.tileColor512 {
+    background-color:#eebb15;
+}
+
+.tileColor1024 {
+    box-shadow: 0px 0px 30px 0.1px rgb(255, 251, 0);
+    background-color:#f3c11c;
+}
+
+.tileColor2048 {
+    box-shadow: 0px 0px 30px 1px rgb(255, 251, 0);
+    background-color:#f0b800;
+}
