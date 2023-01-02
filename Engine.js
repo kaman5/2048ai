@@ -3,70 +3,63 @@ class Engine {
 
     constructor(newBoard) {
         this.board = newBoard;
-        this.up = 0;
-        this.right = 0;
-        this.down = 0;
-        this.left = 0;
-
         this.depth = 2;
     }
 
     play() {
-        let pos = this.board.getPosition();
+        // separate thread
+        const evalWorker = new Worker('bgEval.js');
+        evalWorker.postMessage(this.board.getPosition());
 
+        evalWorker.onmessage = (e) => {
+            let textContent = e.data;
 
-        // if(this.getEmptyTiles(pos) > 2) {
-        //     this.depth = 4;
-        // }
-        // if(this.getEmptyTiles(pos) > 3) {
-        //     this.depth = 3;
-        // }
-        // if(this.getEmptyTiles(pos) > 4) {
-        //     this.depth = 2;
-        // } 
+            engine.updateBar();
 
+            let move = e.data;
 
-        let move = this.evaluate(pos);
+            let lines = document.getElementsByClassName("line");
 
-        let lines = document.getElementsByClassName("line");
+            lines[0].innerHTML = "up: " + Math.floor(move[0]);
+            lines[1].innerHTML = "right: " + Math.floor(move[1]); 
+            lines[2].innerHTML = "down: " + Math.floor(move[2]); 
+            lines[3].innerHTML = "left: " + Math.floor(move[3]); 
 
-        lines[0].innerHTML = "up: " + Math.floor(move[0]);
-        lines[1].innerHTML = "right: " + Math.floor(move[1]); 
-        lines[2].innerHTML = "down: " + Math.floor(move[2]); 
-        lines[3].innerHTML = "left: " + Math.floor(move[3]); 
-
-        let bestMove = move[0];
-        let finalMove = 0;
-        for(let i = 1; i < move.length; i++) {
-            if(bestMove < move[i]) {
-                bestMove = move[i];
-                finalMove = i;
+            let bestMove = move[0];
+            let finalMove = 0;
+            for(let i = 0; i < move.length; i++) {
+                lines[i].style.color = "black";
+                if(bestMove < move[i]) {
+                    bestMove = move[i];
+                    finalMove = i;
+                }
             }
-        }
+            lines[finalMove].style.color = "red";
 
-        
-        if(finalMove == 0) {
-            // console.log("UP:" + bestMove);
-            this.board.shiftUp();
-            this.board.addRandomTile();
-        }
-        else if(finalMove == 1) {
-            // console.log("RIGHT: " + bestMove);
-            this.board.shiftRight();
-            this.board.addRandomTile();
+            
+            if(finalMove == 0) {
+                // console.log("UP:" + bestMove);
+                this.board.shiftUp();
+                this.board.addRandomTile();
+            }
+            else if(finalMove == 1) {
+                // console.log("RIGHT: " + bestMove);
+                this.board.shiftRight();
+                this.board.addRandomTile();
 
-        }
-        else if(finalMove == 2) {
-            // console.log("DOWN: " + bestMove);
-            this.board.shiftDown();
-            this.board.addRandomTile();
+            }
+            else if(finalMove == 2) {
+                // console.log("DOWN: " + bestMove);
+                this.board.shiftDown();
+                this.board.addRandomTile();
 
-        }
-        else if(finalMove == 3) {
-            // console.log("LEFT: " + bestMove);
-            this.board.shiftLeft();
-            this.board.addRandomTile();
+            }
+            else if(finalMove == 3) {
+                // console.log("LEFT: " + bestMove);
+                this.board.shiftLeft();
+                this.board.addRandomTile();
 
+            }
         }
     }
 
@@ -86,6 +79,7 @@ class Engine {
         lines[3].innerHTML = "left: " + Math.floor(move[3]); 
     }
 
+    // WEB WORKER DOWN
     getEveryTile(board) {
         let allTiles = [];
 
