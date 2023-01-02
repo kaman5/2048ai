@@ -1,6 +1,4 @@
-class Board {
-    tileBoard;
-    
+class Board {    
     constructor(newBoard) {
 
     }
