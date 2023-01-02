@@ -60,6 +60,7 @@ class Engine {
                 this.board.addRandomTile();
 
             }
+            evalWorker.terminate();
         }
     }
 
