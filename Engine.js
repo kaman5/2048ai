@@ -165,10 +165,10 @@ class Engine {
     }
 
     getGridWeight(position) {
-        let scoreGrid = [[5, 4, 3, 2],
-                         [4, 2, 1, 1],
-                         [3,  1,  0,  -1],
-                         [2, 1, -1, -10]];
+        let scoreGrid = [[10, 9, 8, 7],
+                         [3, 4, 5, 6],
+                         [2,  1,  0, -1],
+                         [-5, -4, -3, -2]];
         let value = 0;
 
         for(let i = 0; i < position.length; i++) {
